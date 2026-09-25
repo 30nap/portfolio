@@ -48,6 +48,8 @@ export default function HomePage() {
         email={email}
         socialLinks={socialLinks}
         formEndpoint={siteConfig.contactForm.endpoint.trim() || null}
+        resumePdfUrl={getResumePdfUrl()}
+        resumeDownloadName={siteConfig.resume.downloadName}
         ui={ui}
       />
     </>

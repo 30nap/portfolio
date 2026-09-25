@@ -8,8 +8,9 @@ interface ProjectLinksProps {
   labels: UiDictionary["projects"];
 }
 
-const linkClass =
-  "inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-foreground";
+const baseLinkClass = "inline-flex items-center gap-1.5 text-sm font-semibold transition-all";
+const linkClass = `${baseLinkClass} text-muted hover:text-accent`;
+const primaryLinkClass = `${baseLinkClass} text-accent hover:gap-2.5`;
 
 /** Renders only the links that exist. */
 export function ProjectLinks({ project, showCaseStudy, labels }: ProjectLinksProps) {
@@ -20,7 +21,7 @@ export function ProjectLinks({ project, showCaseStudy, labels }: ProjectLinksPro
     <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
       {showCaseStudy ? (
         <li>
-          <Link href={`/projects/${project.slug}`} className={linkClass}>
+          <Link href={`/projects/${project.slug}`} className={primaryLinkClass}>
             {labels.caseStudy}
             <ArrowRightIcon width={14} height={14} />
             <span className="sr-only">: {project.name}</span>

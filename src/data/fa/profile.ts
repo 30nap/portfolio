@@ -8,6 +8,12 @@ export const profile: Profile = {
   tagline:
     "توسعه‌دهنده نرم‌افزار با تمرکز بر طراحی و توسعه سیستم‌های Backend قابل اعتماد، نگهداری‌پذیر و مقیاس‌پذیر با Java و Spring.",
   highlights: ["بیش از ۵ سال سابقه حرفه‌ای", "سامانه‌های سازمانی و بانکی", "اکوسیستم Java و Spring"],
+  // فقط واقعیت‌های قابل اثبات؛ آمار ساختگی نگذارید.
+  stats: [
+    { value: "+۵", label: "سال سابقه حرفه‌ای" },
+    { value: "۳", label: "شرکت نرم‌افزاری" },
+    { value: "۲", label: "پروژه شخصی" },
+  ],
   coreStack: ["Java", "Spring Boot", "Spring Security", "Spring Batch", "Hibernate / JPA", "Oracle", "PostgreSQL", "Kafka"],
   // مثال: "آماده همکاری در نقش Backend". برای پنهان کردن null بگذارید.
   availability: null,

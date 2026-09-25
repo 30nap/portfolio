@@ -169,8 +169,13 @@ never flashes. Colors are CSS variables in `src/app/globals.css`.
 - The rendered locale is `defaultLocale` in `src/lib/i18n.ts` (`"fa"`), which sets
   `<html lang="fa" dir="rtl">`. The English content in `src/data/en/` has the same shape; switch
   `defaultLocale` to `"en"` to render it, or add a `[locale]` route segment to serve both.
-- **Fonts:** Vazirmatn for Persian, Geist for Latin text such as technology names and URLs. Geist's
-  font face only covers Latin characters, so each script picks its own font automatically.
+- **Font:** Vazirmatn (loaded with `next/font`, Arabic and Latin subsets) for the whole interface,
+  including technology names.
+- **Design tokens:** colours, the accent gradient, `.card`, `.icon-badge` and the scroll-reveal
+  animation live in `src/app/globals.css`. Section and skill icons are chosen by name in the data
+  files (`icon: "server"`); available names are listed in `IconName` (`src/types/content.ts`).
+- **Profile photo:** set `avatar: { src: "/avatar.jpg", alt: "…" }` in `profile.ts` (file in
+  `public/`) to replace the monogram in the hero card.
 - **Layout:** spacing and positioning use logical properties (`ps-`, `me-`, `start-`, `text-end`),
   so they mirror in RTL. Directional arrows flip with `rtl:-scale-x-100`; brand icons do not.
 - **Letter-spacing** breaks Persian letter joining, so `tracking-*` utilities are neutralized in RTL

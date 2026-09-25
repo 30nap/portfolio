@@ -8,11 +8,11 @@ export function ProjectsSection({ projects, ui }: { projects: Project[]; ui: UiD
   if (featured.length === 0) return null;
 
   return (
-    <Section id="projects" eyebrow={labels.eyebrow} title={labels.title} description={labels.description}>
-      <ul className="grid gap-6 md:grid-cols-2">
-        {featured.map((project) => (
-          <li key={project.slug} className="flex">
-            <ProjectCard project={project} ui={ui} />
+    <Section id="projects" icon="folder" eyebrow={labels.eyebrow} title={labels.title} description={labels.description}>
+      <ul className="grid gap-6 md:grid-cols-2 lg:gap-8">
+        {featured.map((project, index) => (
+          <li key={project.slug} className="reveal flex">
+            <ProjectCard project={project} ui={ui} index={index} />
           </li>
         ))}
       </ul>

@@ -15,12 +15,14 @@ interface ButtonLinkProps {
 }
 
 const base =
-  "inline-flex h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium whitespace-nowrap transition-colors duration-150 select-none";
+  "inline-flex h-11 items-center justify-center gap-2 rounded-xl px-5 text-sm font-semibold whitespace-nowrap transition-all duration-200 select-none";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-foreground text-background hover:bg-foreground/85",
-  secondary: "border border-border-strong bg-background text-foreground hover:bg-surface hover:border-subtle/60",
-  ghost: "text-muted hover:text-foreground hover:bg-surface",
+  primary:
+    "bg-accent text-accent-foreground shadow-[0_8px_24px_-10px_var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-10px_var(--accent)] hover:brightness-110",
+  secondary:
+    "border border-border-strong bg-card text-foreground shadow-sm hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent",
+  ghost: "text-muted hover:text-accent hover:bg-accent/8",
 };
 
 export function buttonClasses(variant: Variant = "primary", className?: string) {

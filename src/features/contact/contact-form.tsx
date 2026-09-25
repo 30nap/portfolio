@@ -116,9 +116,9 @@ export function ContactForm({ endpoint, email, labels }: ContactFormProps) {
       "aria-invalid": errors[field] ? true : undefined,
       "aria-describedby": errors[field] ? errorId : undefined,
       className: cn(
-        "w-full rounded-lg border bg-background px-3.5 py-2.5 text-[15px] text-foreground placeholder:text-subtle transition-colors",
-        "focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-ring",
-        errors[field] ? "border-red-500/70" : "border-border-strong hover:border-subtle/60",
+        "w-full rounded-xl border bg-surface/70 px-4 py-3 text-[15px] text-foreground placeholder:text-subtle transition-all",
+        "focus:bg-card focus:outline-none focus-visible:border-accent focus-visible:ring-4 focus-visible:ring-accent/15",
+        errors[field] ? "border-red-500/70" : "border-border hover:border-border-strong",
       ),
     };
   }

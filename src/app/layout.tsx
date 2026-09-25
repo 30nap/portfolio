@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Vazirmatn } from "next/font/google";
+import { Vazirmatn } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { ThemeScript } from "@/components/layout/theme-script";
@@ -9,10 +9,8 @@ import { defaultLocale, localeConfig } from "@/lib/i18n";
 import { getOgImage } from "@/lib/seo";
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-// Persian text uses Vazirmatn; Latin text (technology names, URLs) falls through to Geist.
-const vazirmatn = Vazirmatn({ variable: "--font-vazirmatn", subsets: ["arabic"] });
+// Vazirmatn for the whole interface, including Latin text such as technology names.
+const vazirmatn = Vazirmatn({ variable: "--font-vazirmatn", subsets: ["arabic", "latin"], display: "swap" });
 
 const { profile, seo } = getContent();
 
@@ -49,8 +47,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+    { media: "(prefers-color-scheme: light)", color: "#fbfbfd" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0b11" },
   ],
 };
 
@@ -64,7 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       dir={locale.dir}
       // The theme script adds the "dark" class before hydration.
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${vazirmatn.variable} antialiased`}
+      className={`${vazirmatn.variable} antialiased`}
     >
       <head>
         <ThemeScript />
@@ -80,7 +78,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main id="main" tabIndex={-1} className="flex-1 outline-none">
           {children}
         </main>
-        <Footer name={profile.name} role={profile.role} links={getSocialLinks()} rights={ui.footer.rights} digits={ui.digits} />
+        <Footer name={profile.name} role={profile.role} links={getSocialLinks()} navigation={navigation} ui={ui} />
       </body>
     </html>
   );

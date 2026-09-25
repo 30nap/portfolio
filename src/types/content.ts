@@ -8,6 +8,31 @@
 
 export type Locale = "fa" | "en";
 
+/** Icons available to data files (rendered by components/ui/icons.tsx). */
+export type IconName =
+  | "server"
+  | "database"
+  | "message"
+  | "tools"
+  | "layers"
+  | "boundary"
+  | "code"
+  | "blueprint"
+  | "test"
+  | "shield"
+  | "refresh"
+  | "briefcase"
+  | "folder"
+  | "cpu"
+  | "compass"
+  | "graduation"
+  | "user"
+  | "sparkles"
+  | "check"
+  | "building"
+  | "calendar"
+  | "mail";
+
 export type SocialPlatform = "github" | "linkedin";
 
 export interface SocialLink {
@@ -32,6 +57,10 @@ export interface Profile {
   tagline: string;
   /** Short facts shown under the tagline, e.g. "5+ years of experience". */
   highlights: string[];
+  /** Optional photo. Without it, the hero card shows a monogram of the first letter of `name`. */
+  avatar?: { src: string; alt: string };
+  /** Short verifiable facts shown in the hero card, e.g. { value: "5+", label: "years of experience" }. */
+  stats: { value: string; label: string }[];
   /** Short list of core technologies shown in the hero snapshot. */
   coreStack: string[];
   /** Optional availability badge. Set to `null` to hide it. */
@@ -116,11 +145,13 @@ export interface Project {
 
 export interface SkillGroup {
   title: string;
+  icon?: IconName;
   items: string[];
 }
 
 export interface Principle {
   title: string;
+  icon?: IconName;
   description: string;
 }
 
@@ -200,6 +231,8 @@ export interface UiDictionary {
     sections: Record<Exclude<keyof CaseStudy, "technologies">, string>;
   };
   contact: {
+    ctaTitle: string;
+    ctaBody: string;
     email: string;
     formTitle: string;
     name: string;
@@ -240,6 +273,7 @@ export interface UiDictionary {
   };
   footer: {
     rights: string;
+    backToTop: string;
   };
   notFound: {
     title: string;

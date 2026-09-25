@@ -1,5 +1,7 @@
+import type * as React from "react";
 import type { SVGProps } from "react";
 import { cn } from "@/lib/utils";
+import type { IconName } from "@/types/content";
 
 type IconProps = SVGProps<SVGSVGElement>;
 
@@ -140,4 +142,183 @@ export function MapPinIcon(props: IconProps) {
       <circle cx="12" cy="9.5" r="2.5" />
     </Stroke>
   );
+}
+
+function strokeIcon(paths: React.ReactNode) {
+  function StrokeIcon(props: IconProps) {
+    return <Stroke {...props}>{paths}</Stroke>;
+  }
+  return StrokeIcon;
+}
+
+export const ServerIcon = strokeIcon(
+  <>
+    <rect x="2.5" y="3" width="19" height="8" rx="2" />
+    <rect x="2.5" y="13" width="19" height="8" rx="2" />
+    <path d="M6.5 7h.01M6.5 17h.01M10 7h4M10 17h4" />
+  </>,
+);
+
+export const DatabaseIcon = strokeIcon(
+  <>
+    <ellipse cx="12" cy="5" rx="8" ry="3" />
+    <path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5" />
+    <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3" />
+  </>,
+);
+
+export const MessageIcon = strokeIcon(
+  <>
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    <path d="M8 9h8M8 13h5" />
+  </>,
+);
+
+export const ToolsIcon = strokeIcon(
+  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />,
+);
+
+export const LayersIcon = strokeIcon(
+  <>
+    <path d="m12 2 10 5-10 5L2 7l10-5Z" />
+    <path d="m2 17 10 5 10-5" />
+    <path d="m2 12 10 5 10-5" />
+  </>,
+);
+
+export const BoundaryIcon = strokeIcon(
+  <>
+    <rect x="3" y="3" width="7" height="7" rx="1.5" />
+    <rect x="14" y="3" width="7" height="7" rx="1.5" />
+    <rect x="14" y="14" width="7" height="7" rx="1.5" />
+    <rect x="3" y="14" width="7" height="7" rx="1.5" />
+  </>,
+);
+
+export const CodeIcon = strokeIcon(<path d="m16 18 6-6-6-6M8 6l-6 6 6 6" />);
+
+export const BlueprintIcon = strokeIcon(
+  <>
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <path d="M3 9h18M9 21V9" />
+  </>,
+);
+
+export const TestIcon = strokeIcon(
+  <>
+    <path d="M9 3h6M10 3v6.5L4.5 19a1.5 1.5 0 0 0 1.3 2.2h12.4a1.5 1.5 0 0 0 1.3-2.2L14 9.5V3" />
+    <path d="M7 15h10" />
+  </>,
+);
+
+export const ShieldIcon = strokeIcon(
+  <>
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <path d="m9 12 2 2 4-4" />
+  </>,
+);
+
+export const RefreshIcon = strokeIcon(
+  <>
+    <path d="M21 12a9 9 0 0 1-15.5 6.2L3 16" />
+    <path d="M3 21v-5h5" />
+    <path d="M3 12a9 9 0 0 1 15.5-6.2L21 8" />
+    <path d="M21 3v5h-5" />
+  </>,
+);
+
+export const BriefcaseIcon = strokeIcon(
+  <>
+    <rect x="2" y="7" width="20" height="14" rx="2" />
+    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M2 13h20" />
+  </>,
+);
+
+export const FolderIcon = strokeIcon(
+  <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />,
+);
+
+export const CpuIcon = strokeIcon(
+  <>
+    <rect x="4" y="4" width="16" height="16" rx="2" />
+    <rect x="9" y="9" width="6" height="6" rx="1" />
+    <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3" />
+  </>,
+);
+
+export const CompassIcon = strokeIcon(
+  <>
+    <circle cx="12" cy="12" r="10" />
+    <path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z" />
+  </>,
+);
+
+export const GraduationIcon = strokeIcon(
+  <>
+    <path d="M22 10 12 5 2 10l10 5 10-5Z" />
+    <path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 10v6" />
+  </>,
+);
+
+export const UserIcon = strokeIcon(
+  <>
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 21a8 8 0 0 1 16 0" />
+  </>,
+);
+
+export const SparklesIcon = strokeIcon(
+  <>
+    <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" />
+    <path d="M19 15v4M17 17h4" />
+  </>,
+);
+
+export const CheckIcon = strokeIcon(<path d="M20 6 9 17l-5-5" />);
+
+export const BuildingIcon = strokeIcon(
+  <>
+    <rect x="4" y="2" width="16" height="20" rx="2" />
+    <path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01" />
+  </>,
+);
+
+export const CalendarIcon = strokeIcon(
+  <>
+    <rect x="3" y="4" width="18" height="18" rx="2" />
+    <path d="M16 2v4M8 2v4M3 10h18" />
+  </>,
+);
+
+export const ArrowUpIcon = strokeIcon(<path d="M12 19V5M5 12l7-7 7 7" />);
+
+/** Icons that data files can reference by name (see `IconName` in types/content.ts). */
+export const iconRegistry: Record<IconName, (props: IconProps) => React.ReactElement> = {
+  server: ServerIcon,
+  database: DatabaseIcon,
+  message: MessageIcon,
+  tools: ToolsIcon,
+  layers: LayersIcon,
+  boundary: BoundaryIcon,
+  code: CodeIcon,
+  blueprint: BlueprintIcon,
+  test: TestIcon,
+  shield: ShieldIcon,
+  refresh: RefreshIcon,
+  briefcase: BriefcaseIcon,
+  folder: FolderIcon,
+  cpu: CpuIcon,
+  compass: CompassIcon,
+  graduation: GraduationIcon,
+  user: UserIcon,
+  sparkles: SparklesIcon,
+  check: CheckIcon,
+  building: BuildingIcon,
+  calendar: CalendarIcon,
+  mail: MailIcon,
+};
+
+export function Icon({ name, ...props }: IconProps & { name: IconName }) {
+  const Component = iconRegistry[name];
+  return <Component {...props} />;
 }

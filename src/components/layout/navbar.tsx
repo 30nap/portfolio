@@ -63,10 +63,16 @@ export function Navbar({ name, items, labels }: NavbarProps) {
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
         <Link
           href="/"
-          className="text-[15px] font-semibold tracking-tight"
+          className="group flex items-center gap-2.5 text-[15px] font-bold"
           aria-label={`${name} — ${labels.nav.home}`}
           onClick={() => setMenuOpen(false)}
         >
+          <span
+            aria-hidden="true"
+            className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-accent-2 text-sm font-black text-white shadow-md shadow-accent/25 transition-transform group-hover:scale-105"
+          >
+            {name.charAt(0)}
+          </span>
           {name}
         </Link>
 
@@ -78,8 +84,8 @@ export function Navbar({ name, items, labels }: NavbarProps) {
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "rounded-md px-3 py-2 text-sm transition-colors hover:text-foreground",
-                    isActive(item.href) ? "text-foreground" : "text-muted",
+                    "rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent/8 hover:text-accent",
+                    isActive(item.href) ? "bg-accent/10 text-accent" : "text-muted",
                   )}
                 >
                   {item.label}
@@ -120,7 +126,7 @@ export function Navbar({ name, items, labels }: NavbarProps) {
                 onClick={() => setMenuOpen(false)}
                 className={cn(
                   "block rounded-md px-2 py-2.5 text-[15px] transition-colors hover:bg-surface hover:text-foreground",
-                  isActive(item.href) ? "text-foreground" : "text-muted",
+                  isActive(item.href) ? "bg-accent/10 text-accent" : "text-muted",
                 )}
               >
                 {item.label}

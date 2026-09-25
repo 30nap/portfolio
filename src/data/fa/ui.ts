@@ -74,6 +74,8 @@ export const ui: UiDictionary = {
     },
   },
   contact: {
+    ctaTitle: "بیایید درباره پروژه یا فرصت بعدی صحبت کنیم",
+    ctaBody: "رزومه کامل من را ببینید یا از یکی از راه‌های ارتباطی زیر استفاده کنید.",
     email: "ایمیل",
     formTitle: "ارسال پیام",
     name: "نام",
@@ -112,6 +114,7 @@ export const ui: UiDictionary = {
   },
   footer: {
     rights: "تمامی حقوق محفوظ است.",
+    backToTop: "بازگشت به بالا",
   },
   notFound: {
     title: "صفحه پیدا نشد",

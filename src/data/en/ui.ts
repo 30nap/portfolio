@@ -73,6 +73,8 @@ export const ui: UiDictionary = {
     },
   },
   contact: {
+    ctaTitle: "Let's talk about your next project or role",
+    ctaBody: "Take a look at my full resume or reach out through any of the channels below.",
     email: "Email",
     formTitle: "Send a message",
     name: "Name",
@@ -111,6 +113,7 @@ export const ui: UiDictionary = {
   },
   footer: {
     rights: "All rights reserved.",
+    backToTop: "Back to top",
   },
   notFound: {
     title: "Page not found",

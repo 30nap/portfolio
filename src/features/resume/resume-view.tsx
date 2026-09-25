@@ -101,7 +101,7 @@ export function ResumeView({ content, experience, socialLinks, email, siteUrl, p
                   <h3 className="font-semibold">
                     {item.title} <span className="font-normal text-muted">· {item.company.name}</span>
                   </h3>
-                  <p className="shrink-0 font-mono text-sm text-subtle rtl:font-sans">
+                  <p className="shrink-0 text-sm text-subtle">
                     {formatDateRange(item.start, item.end, ui)}
                   </p>
                 </div>
@@ -174,7 +174,7 @@ export function ResumeView({ content, experience, socialLinks, email, siteUrl, p
                     <h3 className="font-semibold">{item.degree}</h3>
                     <p className="text-sm text-muted">{item.institution}</p>
                   </div>
-                  {dates ? <p className="shrink-0 font-mono text-sm text-subtle rtl:font-sans">{dates}</p> : null}
+                  {dates ? <p className="shrink-0 text-sm text-subtle">{dates}</p> : null}
                 </li>
               );
             })}

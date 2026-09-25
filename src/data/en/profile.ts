@@ -12,6 +12,12 @@ export const profile: Profile = {
     "Enterprise & banking systems",
     "Java & Spring ecosystem",
   ],
+  // Verifiable facts only.
+  stats: [
+    { value: "5+", label: "years of experience" },
+    { value: "3", label: "software companies" },
+    { value: "2", label: "personal projects" },
+  ],
   coreStack: ["Java", "Spring Boot", "Spring Security", "Spring Batch", "Hibernate / JPA", "Oracle", "PostgreSQL", "Kafka"],
   // Example: "Open to backend roles". Set to null to hide the badge.
   availability: null,
