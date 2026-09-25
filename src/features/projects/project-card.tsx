@@ -5,6 +5,7 @@ import { hasCaseStudyContent } from "@/lib/content";
 import { ProjectLinks } from "@/features/projects/project-links";
 import { StatusBadge } from "@/features/projects/status-badge";
 import type { Project, UiDictionary } from "@/types/content";
+import { withBasePath } from "@/lib/utils";
 
 export function ProjectCard({ project, ui }: { project: Project; ui: UiDictionary }) {
   const showCaseStudy = hasCaseStudyContent(project.caseStudy);
@@ -14,7 +15,7 @@ export function ProjectCard({ project, ui }: { project: Project; ui: UiDictionar
       {project.image ? (
         <div className="border-b border-border bg-surface">
           <Image
-            src={project.image.src}
+            src={withBasePath(project.image.src)}
             alt={project.image.alt}
             width={project.image.width}
             height={project.image.height}

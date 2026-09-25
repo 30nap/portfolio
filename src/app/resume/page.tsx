@@ -9,7 +9,7 @@ const { profile, ui } = getContent();
 export const metadata = buildMetadata({
   title: ui.resume.title,
   description: `Resume of ${profile.name}, ${profile.role}. ${ui.resume.description}`,
-  path: "/resume",
+  path: "/resume/",
 });
 
 export default function ResumePage() {
@@ -17,7 +17,7 @@ export default function ResumePage() {
 
   return (
     <>
-      <JsonLd data={buildPersonJsonLd("/resume")} />
+      <JsonLd data={buildPersonJsonLd("/resume/")} />
       <ResumeView
         content={content}
         experience={getExperienceWithCompanies(content)}

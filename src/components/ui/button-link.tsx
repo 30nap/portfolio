@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { cn, isExternalUrl } from "@/lib/utils";
+import { cn, isExternalUrl, withBasePath } from "@/lib/utils";
 
 type Variant = "primary" | "secondary" | "ghost";
 
@@ -38,7 +38,7 @@ export function ButtonLink({ href, children, variant = "primary", className, dow
   if (external || download || href.startsWith("mailto:")) {
     return (
       <a
-        href={href}
+        href={withBasePath(href)}
         className={classes}
         download={download}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}

@@ -2,7 +2,8 @@
 
 Personal portfolio and resume site for Sina, Java Backend Developer.
 Built with Next.js (App Router), TypeScript (strict) and Tailwind CSS. It has no runtime
-dependencies beyond Next.js and React, and every page is pre-rendered as static HTML.
+dependencies beyond Next.js and React. The site is a fully static export (`out/`), deployed to
+GitHub Pages: **https://30nap.github.io/portfolio/**
 
 ## Project structure
 
@@ -14,7 +15,7 @@ src/
     resume/page.tsx        /resume, printable
     projects/[slug]/       /projects/{slug} case study pages (statically generated)
     sitemap.ts, robots.ts  /sitemap.xml and /robots.txt
-    opengraph-image.tsx    Social preview image generated from profile data
+    og.png/route.tsx       Social preview image (/og.png) generated from profile data
     icon.svg               Favicon
   components/
     layout/                Navbar, footer, theme toggle, theme script
@@ -47,8 +48,8 @@ npm run dev        # http://localhost:3000
 Other scripts:
 
 ```bash
-npm run build      # production build
-npm run start      # serve the production build
+npm run build      # static export to ./out
+npm run start      # preview ./out at http://localhost:3000
 npm run lint       # ESLint
 npm run typecheck  # TypeScript strict check
 ```
@@ -154,9 +155,11 @@ never flashes. Colors are CSS variables in `src/app/globals.css`.
 
 - Metadata, canonical URLs, OpenGraph and Twitter/X cards: `src/lib/seo.ts` and `src/app/layout.tsx`.
 - Structured data: schema.org `ProfilePage` + `Person` JSON-LD on `/` and `/resume`.
-- `/sitemap.xml`, `/robots.txt` and the OpenGraph image are generated from the data files.
-- Set `NEXT_PUBLIC_SITE_URL` in production so canonical and OpenGraph URLs are absolute and correct
-  (see `.env.example`). On Vercel, the production domain is used automatically if it is not set.
+- `/sitemap.xml`, `/robots.txt` and `/og.png` are generated from the data files.
+- Canonical and OpenGraph URLs come from `NEXT_PUBLIC_SITE_URL`. The GitHub Pages workflow sets it
+  automatically. For other hosts, see `.env.example`.
+- On a project site (`30nap.github.io/portfolio`), crawlers only read `robots.txt` at the domain
+  root, so submit `sitemap.xml` in Google Search Console. With a custom domain, both work as-is.
 
 ## Adding Persian later
 
@@ -172,16 +175,29 @@ The site is structured for a second locale:
 
 ## Deploy
 
-**Vercel (recommended)**
+### GitHub Pages (current setup)
 
-1. Push the repository to GitHub.
-2. Import it at vercel.com → *Add New Project*. The framework is detected automatically.
-3. Optionally add the `NEXT_PUBLIC_SITE_URL` environment variable (e.g. `https://sina.dev`) and your custom domain.
+`.github/workflows/deploy.yml` runs lint, typecheck and the static build on every push. Pushes
+to the **default branch** are also published to GitHub Pages.
 
-**Any Node.js host**
+One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**. Then push,
+or re-run the workflow from the *Actions* tab.
 
-```bash
-npm ci && npm run build && npm run start   # listens on port 3000 (override with -p)
-```
+The workflow reads the base path and URL from the Pages configuration:
 
-Every page is static, so the site also runs well behind a CDN. Rebuild after editing content.
+- on `https://30nap.github.io/portfolio/` it builds with `NEXT_PUBLIC_BASE_PATH=/portfolio`;
+- with a custom domain (set under Settings → Pages) it builds with an empty base path, and
+  canonical URLs use your domain. Nothing in the code needs to change.
+
+To use `https://30nap.github.io/` without the `/portfolio` suffix, rename the repository to
+`30nap.github.io`.
+
+**Base path in code:** `next/link` adds the base path automatically. Plain `<a href="/…">` links
+and `next/image` `src` values need `withBasePath()` from `src/lib/utils.ts`. The resume PDF
+button and project images already use it.
+
+### Other static hosts
+
+`npm run build` writes a self-contained static site to `out/`. Upload that folder to Netlify,
+Cloudflare Pages, Vercel or any web server; set `NEXT_PUBLIC_SITE_URL` (and
+`NEXT_PUBLIC_BASE_PATH` if the site is served from a sub-path) at build time.

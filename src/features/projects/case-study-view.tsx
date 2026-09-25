@@ -7,6 +7,7 @@ import { ProjectLinks } from "@/features/projects/project-links";
 import { StatusBadge } from "@/features/projects/status-badge";
 import { hasCaseStudyContent } from "@/lib/content";
 import type { CaseStudy, Project, UiDictionary } from "@/types/content";
+import { withBasePath } from "@/lib/utils";
 
 type NarrativeKey = keyof UiDictionary["caseStudy"]["sections"];
 
@@ -61,7 +62,7 @@ export function CaseStudyView({ project, ui }: { project: Project; ui: UiDiction
       {project.image ? (
         <div className="mt-12 overflow-hidden rounded-xl border border-border bg-surface">
           <Image
-            src={project.image.src}
+            src={withBasePath(project.image.src)}
             alt={project.image.alt}
             width={project.image.width}
             height={project.image.height}

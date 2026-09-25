@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
   return buildMetadata({
     title: project.name,
     description: project.summary,
-    path: `/projects/${project.slug}`,
+    path: `/projects/${project.slug}/`,
     // Placeholder pages stay out of search results until they have content.
     noIndex: !hasCaseStudyContent(project.caseStudy),
   });

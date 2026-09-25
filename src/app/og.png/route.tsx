@@ -1,14 +1,18 @@
 import { ImageResponse } from "next/og";
 import { getContent } from "@/lib/content";
+import { OG_IMAGE } from "@/lib/seo";
 
 const { profile } = getContent();
 
-export const alt = `${profile.name} — ${profile.role}`;
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+// Required for `output: "export"`: render once at build time.
+export const dynamic = "force-static";
 
-/** Social preview image, generated at build time from the profile data. */
-export default function OpengraphImage() {
+/**
+ * Social preview image served at /og.png, generated at build time from the profile data.
+ * A route with a real .png name (instead of the opengraph-image convention) gets the
+ * correct content type on static hosts such as GitHub Pages.
+ */
+export function GET() {
   return new ImageResponse(
     (
       <div
@@ -55,6 +59,6 @@ export default function OpengraphImage() {
         </div>
       </div>
     ),
-    size,
+    { width: OG_IMAGE.width, height: OG_IMAGE.height },
   );
 }

@@ -6,6 +6,7 @@ import { ThemeScript } from "@/components/layout/theme-script";
 import { siteConfig } from "@/data/site";
 import { getContent, getSocialLinks } from "@/lib/content";
 import { defaultLocale, localeConfig } from "@/lib/i18n";
+import { getOgImage } from "@/lib/seo";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -31,11 +32,13 @@ export const metadata: Metadata = {
     title: siteConfig.seo.title,
     description: siteConfig.seo.description,
     url: "/",
+    images: [getOgImage()],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.seo.title,
     description: siteConfig.seo.description,
+    images: [getOgImage()],
     ...(siteConfig.seo.twitterHandle ? { creator: siteConfig.seo.twitterHandle } : {}),
   },
   robots: { index: true, follow: true },
