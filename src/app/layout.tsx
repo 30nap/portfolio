@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Vazirmatn } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { ThemeScript } from "@/components/layout/theme-script";
@@ -11,33 +11,36 @@ import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+// Persian text uses Vazirmatn; Latin text (technology names, URLs) falls through to Geist.
+const vazirmatn = Vazirmatn({ variable: "--font-vazirmatn", subsets: ["arabic"] });
 
-const { profile } = getContent();
+const { profile, seo } = getContent();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.seo.title,
+    default: seo.title,
     template: `%s | ${profile.name}`,
   },
-  description: siteConfig.seo.description,
-  keywords: siteConfig.seo.keywords,
+  description: seo.description,
+  keywords: seo.keywords,
   authors: [{ name: profile.name, url: siteConfig.url }],
+  applicationName: profile.name,
   creator: profile.name,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: profile.name,
     locale: localeConfig[defaultLocale].ogLocale,
-    title: siteConfig.seo.title,
-    description: siteConfig.seo.description,
+    title: seo.title,
+    description: seo.description,
     url: "/",
     images: [getOgImage()],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.seo.title,
-    description: siteConfig.seo.description,
+    title: seo.title,
+    description: seo.description,
     images: [getOgImage()],
     ...(siteConfig.seo.twitterHandle ? { creator: siteConfig.seo.twitterHandle } : {}),
   },
@@ -61,7 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       dir={locale.dir}
       // The theme script adds the "dark" class before hydration.
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${vazirmatn.variable} antialiased`}
     >
       <head>
         <ThemeScript />
@@ -77,7 +80,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main id="main" tabIndex={-1} className="flex-1 outline-none">
           {children}
         </main>
-        <Footer name={profile.name} role={profile.role} links={getSocialLinks()} rights={ui.footer.rights} />
+        <Footer name={profile.name} role={profile.role} links={getSocialLinks()} rights={ui.footer.rights} digits={ui.digits} />
       </body>
     </html>
   );

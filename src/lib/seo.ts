@@ -7,7 +7,8 @@ import { defaultLocale, localeConfig } from "@/lib/i18n";
 export const OG_IMAGE = { path: "/og.png", width: 1200, height: 630 } as const;
 
 export function getOgImage() {
-  const { profile } = getContent();
+  // The image itself is in English (see og.png/route.tsx), so the alt text is too.
+  const { profile } = getContent("en");
   return {
     url: OG_IMAGE.path,
     width: OG_IMAGE.width,
@@ -28,17 +29,18 @@ interface PageMetadataOptions {
 
 /** Per-page metadata, including the shared OpenGraph/Twitter image. */
 export function buildMetadata({ title, description, path, noIndex }: PageMetadataOptions): Metadata {
-  const resolvedTitle = title ? `${title} | ${getContent().profile.name}` : siteConfig.seo.title;
-  const resolvedDescription = description ?? siteConfig.seo.description;
+  const { seo, profile } = getContent();
+  const resolvedTitle = title ? `${title} | ${profile.name}` : seo.title;
+  const resolvedDescription = description ?? seo.description;
 
   return {
-    title: title ? title : { absolute: siteConfig.seo.title },
+    title: title ? title : { absolute: seo.title },
     description: resolvedDescription,
     alternates: { canonical: path },
     // Nested objects replace the layout's values, so the full objects are set here.
     openGraph: {
       type: "website",
-      siteName: getContent().profile.name,
+      siteName: profile.name,
       locale: localeConfig[defaultLocale].ogLocale,
       title: resolvedTitle,
       description: resolvedDescription,
@@ -71,6 +73,7 @@ export function buildPersonJsonLd(path: string) {
     mainEntity: {
       "@type": "Person",
       name: profile.name,
+      alternateName: profile.latinName,
       jobTitle: profile.role,
       description: profile.tagline,
       url: siteConfig.url,

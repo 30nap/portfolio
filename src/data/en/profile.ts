@@ -1,8 +1,10 @@
 import type { Profile } from "@/types/content";
 
 export const profile: Profile = {
-  name: "Sina",
+  name: "Sina Pezeshki",
+  latinName: "Sina Pezeshki",
   role: "Java Backend Developer",
+  roleSubtitle: "Software Engineer",
   tagline:
     "Backend developer focused on building reliable, maintainable and scalable Java applications.",
   highlights: [

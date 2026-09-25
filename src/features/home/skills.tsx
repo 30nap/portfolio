@@ -15,6 +15,7 @@ export function SkillsSection({ groups, ui }: { groups: SkillGroup[]; ui: UiDict
                 {group.items.map((item) => (
                   <li
                     key={item}
+                    dir="auto"
                     className="rounded-md border border-border bg-surface px-2.5 py-1 text-sm text-foreground/85"
                   >
                     {item}

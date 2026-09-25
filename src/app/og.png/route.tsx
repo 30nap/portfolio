@@ -2,7 +2,8 @@ import { ImageResponse } from "next/og";
 import { getContent } from "@/lib/content";
 import { OG_IMAGE } from "@/lib/seo";
 
-const { profile } = getContent();
+// Rendered in English: the image renderer (Satori) does not shape Persian script reliably.
+const { profile } = getContent("en");
 
 // Required for `output: "export"`: render once at build time.
 export const dynamic = "force-static";

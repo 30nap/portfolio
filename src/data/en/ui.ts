@@ -2,6 +2,8 @@ import type { UiDictionary } from "@/types/content";
 
 /** Interface copy: headings, buttons, labels and messages. */
 export const ui: UiDictionary = {
+  digits: "latin",
+  listSeparator: ", ",
   skipToContent: "Skip to content",
   nav: {
     home: "Home",
@@ -42,7 +44,7 @@ export const ui: UiDictionary = {
     },
   },
   experience: { present: "Present" },
-  education: { expected: "Expected", inProgress: "In progress" },
+  education: { expected: "Expected {year}", inProgress: "In progress" },
   projects: {
     sourceCode: "Source code",
     liveDemo: "Live demo",
@@ -76,6 +78,10 @@ export const ui: UiDictionary = {
     name: "Name",
     emailField: "Email",
     message: "Message",
+    namePlaceholder: "Your name",
+    emailPlaceholder: "you@example.com",
+    messagePlaceholder: "How can I help?",
+    mailSubject: "Portfolio contact from {name}",
     submit: "Send message",
     sending: "Sending…",
     success: "Thanks — your message has been sent. I'll get back to you soon.",
@@ -93,6 +99,7 @@ export const ui: UiDictionary = {
   resume: {
     title: "Resume",
     description: "Experience, skills and education.",
+    metaDescription: "Resume of {name}, {role}. Experience, skills and education.",
     downloadPdf: "Download PDF",
     print: "Print / Save as PDF",
     summary: "Summary",

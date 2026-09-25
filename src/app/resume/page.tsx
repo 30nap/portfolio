@@ -8,7 +8,7 @@ const { profile, ui } = getContent();
 
 export const metadata = buildMetadata({
   title: ui.resume.title,
-  description: `Resume of ${profile.name}, ${profile.role}. ${ui.resume.description}`,
+  description: ui.resume.metaDescription.replace("{name}", profile.name).replace("{role}", profile.role),
   path: "/resume/",
 });
 

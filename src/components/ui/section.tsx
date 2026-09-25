@@ -19,7 +19,7 @@ export function Section({ id, eyebrow, title, description, children, className }
     <section id={id} aria-labelledby={headingId} className={cn("border-t border-border py-20 sm:py-28", className)}>
       <Container>
         <div className="max-w-2xl">
-          <p className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-subtle">{eyebrow}</p>
+          <p className="eyebrow">{eyebrow}</p>
           <h2 id={headingId} className="mt-3 text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
             {title}
           </h2>

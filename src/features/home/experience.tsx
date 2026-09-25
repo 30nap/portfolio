@@ -33,8 +33,8 @@ export function ExperienceSection({ items, ui }: { items: ExperienceWithCompany[
                 )}
               />
 
-              <p className="font-mono text-sm text-subtle md:pt-0.5 md:text-end">
-                {formatDateRange(item.start, item.end, ui.experience.present)}
+              <p className="font-mono text-sm text-subtle rtl:font-sans md:pt-0.5 md:text-end">
+                {formatDateRange(item.start, item.end, ui)}
               </p>
 
               <div>

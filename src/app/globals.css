@@ -45,8 +45,12 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-ring: var(--ring);
   --color-success: var(--success);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  /*
+   * Geist only covers Latin (its @font-face has a Latin unicode-range), so Latin text such as
+   * technology names renders in Geist and Persian text falls through to Vazirmatn.
+   */
+  --font-sans: var(--font-geist-sans), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), var(--font-vazirmatn), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 @layer base {
@@ -59,8 +63,19 @@
   body {
     background: var(--background);
     color: var(--foreground);
-    font-feature-settings: "ss01", "cv11";
     text-rendering: optimizeLegibility;
+  }
+
+  /*
+   * Letter-spacing breaks the joining of Persian letters, so tracking utilities are
+   * neutralized in RTL. Tailwind's tracking-* classes read these variables.
+   */
+  [dir="rtl"] {
+    --tracking-tighter: 0em;
+    --tracking-tight: 0em;
+    --tracking-wide: 0em;
+    --tracking-wider: 0em;
+    --tracking-widest: 0em;
   }
 
   ::selection {
@@ -85,6 +100,28 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  /* Small label above section headings. */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--subtle);
+  }
+
+  /* Persian has no letter case and must not be letter-spaced. */
+  [dir="rtl"] .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: normal;
+    text-transform: none;
   }
 }
 

@@ -33,7 +33,7 @@ export const siteConfig = {
      */
     pdfUrl: "",
     /** File name suggested to the browser when downloading. */
-    downloadName: "Sina-Java-Backend-Developer-Resume.pdf",
+    downloadName: "Sina-Pezeshki-Java-Backend-Developer-Resume.pdf",
   },
 
   contactForm: {
@@ -46,21 +46,7 @@ export const siteConfig = {
   },
 
   seo: {
-    title: "Sina | Java Backend Developer",
-    description:
-      "Java Backend Developer specializing in Spring Boot, enterprise backend systems and modern Java software architecture.",
-    keywords: [
-      "Java Backend Developer",
-      "Spring Boot",
-      "Spring Security",
-      "Spring Batch",
-      "Hibernate",
-      "Backend Engineer",
-      "Software Engineer",
-      "Enterprise Software",
-      "Banking Systems",
-      "Software Architecture",
-    ],
+    // Page titles, descriptions and keywords are per language: see src/data/<locale>/seo.ts.
     /** Optional X/Twitter handle including "@". Empty string omits it. */
     twitterHandle: "",
   },

@@ -9,7 +9,7 @@ export function EducationSection({ items, ui }: { items: Education[]; ui: UiDict
     <Section id="education" eyebrow={labels.eyebrow} title={labels.title}>
       <ul className="space-y-8">
         {items.map((item) => {
-          const dates = formatEducationDates(item, ui.education);
+          const dates = formatEducationDates(item, ui);
           return (
             <li
               key={`${item.institution}-${item.degree}`}
@@ -24,7 +24,7 @@ export function EducationSection({ items, ui }: { items: Education[]; ui: UiDict
                   </p>
                 ))}
               </div>
-              {dates ? <p className="font-mono text-sm text-subtle">{dates}</p> : null}
+              {dates ? <p className="font-mono text-sm text-subtle rtl:font-sans">{dates}</p> : null}
             </li>
           );
         })}

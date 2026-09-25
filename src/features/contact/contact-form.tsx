@@ -97,7 +97,7 @@ export function ContactForm({ endpoint, email, labels }: ContactFormProps) {
     }
 
     if (email) {
-      const subject = `Portfolio contact from ${payload.name}`;
+      const subject = labels.mailSubject.replace("{name}", payload.name);
       const body = `${payload.message}\n\n— ${payload.name} (${payload.email})`;
       window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       setStatus("mailto");
@@ -148,6 +148,9 @@ export function ContactForm({ endpoint, email, labels }: ContactFormProps) {
             }}
             type="text"
             autoComplete="name"
+            placeholder={labels.namePlaceholder}
+            // Follows the typed text: Persian or Latin names both display correctly.
+            dir="auto"
             required
             onChange={(event) => update("name", event.target.value)}
             {...fieldProps("name")}
@@ -165,6 +168,9 @@ export function ContactForm({ endpoint, email, labels }: ContactFormProps) {
             type="email"
             autoComplete="email"
             inputMode="email"
+            // Email addresses are always LTR, also in an RTL form.
+            dir="ltr"
+            placeholder={labels.emailPlaceholder}
             required
             onChange={(event) => update("email", event.target.value)}
             {...fieldProps("email")}
@@ -182,6 +188,8 @@ export function ContactForm({ endpoint, email, labels }: ContactFormProps) {
             fieldRefs.current.message = node;
           }}
           rows={5}
+          placeholder={labels.messagePlaceholder}
+          dir="auto"
           required
           onChange={(event) => update("message", event.target.value)}
           {...fieldProps("message")}

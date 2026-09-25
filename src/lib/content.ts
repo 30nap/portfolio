@@ -1,7 +1,8 @@
 import { en } from "@/data/en";
+import { fa } from "@/data/fa";
 import { siteConfig } from "@/data/site";
 import { socialLinks } from "@/data/social";
-import { defaultLocale } from "@/lib/i18n";
+import { defaultLocale, fixRtlPunctuation, localizeDigits, mapStrings } from "@/lib/i18n";
 import type {
   CaseStudy,
   Company,
@@ -14,7 +15,10 @@ import type {
   UiDictionary,
 } from "@/types/content";
 
-const content: Record<Locale, SiteContent> = { en };
+const content: Record<Locale, SiteContent> = {
+  fa: mapStrings(fa, fixRtlPunctuation),
+  en,
+};
 
 export function getContent(locale: Locale = defaultLocale): SiteContent {
   return content[locale];
@@ -54,8 +58,8 @@ export function getExperienceWithCompanies({
   });
 }
 
-export function formatDateRange(start: string, end: string | null, present: string): string {
-  return `${start} – ${end ?? present}`;
+export function formatDateRange(start: string, end: string | null, ui: UiDictionary): string {
+  return localizeDigits(`${start} – ${end ?? ui.experience.present}`, ui.digits);
 }
 
 export function getProject(projects: Project[], slug: string): Project | undefined {
@@ -71,7 +75,12 @@ export function hasCaseStudyContent(caseStudy: CaseStudy | undefined): boolean {
 }
 
 /** "2021 – Expected 2027", "In progress", "2019 – 2023" or "" when no dates are set. */
-export function formatEducationDates(item: Education, labels: UiDictionary["education"]): string {
-  const end = item.inProgress ? (item.end ? `${labels.expected} ${item.end}` : labels.inProgress) : item.end;
-  return [item.start, end].filter(Boolean).join(" – ");
+export function formatEducationDates(item: Education, ui: UiDictionary): string {
+  const labels = ui.education;
+  const end = item.inProgress
+    ? item.end
+      ? labels.expected.replace("{year}", item.end)
+      : labels.inProgress
+    : item.end;
+  return localizeDigits([item.start, end].filter(Boolean).join(" – "), ui.digits);
 }

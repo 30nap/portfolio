@@ -1,6 +1,7 @@
-# Sina — Portfolio & Resume
+# سینا پزشکی — Portfolio & Resume
 
-Personal portfolio and resume site for Sina, Java Backend Developer.
+Personal portfolio and resume site for سینا پزشکی (Sina Pezeshki), Java Backend Developer.
+The site is in Persian (RTL); an English content set is kept in `src/data/en/`.
 Built with Next.js (App Router), TypeScript (strict) and Tailwind CSS. It has no runtime
 dependencies beyond Next.js and React. The site is a fully static export (`out/`), deployed to
 GitHub Pages: **https://30nap.github.io/portfolio/**
@@ -26,9 +27,10 @@ src/
     resume/                Resume view and print button
     contact/               Contact form (client component)
   data/                    ← All site content lives here
-    site.ts                URL, email, resume PDF, contact form endpoint, SEO defaults
+    site.ts                URL, email, resume PDF, contact form endpoint
     social.ts              GitHub / LinkedIn links
-    en/                    English copy (one file per content type)
+    fa/                    Persian content, rendered by the site (one file per content type)
+    en/                    English content with the same shape, for an English version
   lib/                     Content access helpers, SEO helpers, i18n config
   types/content.ts         Types every data file must satisfy
 ```
@@ -58,16 +60,17 @@ npm run typecheck  # TypeScript strict check
 
 | What | File |
 | --- | --- |
-| Name, role, tagline, About text, focus areas, resume summary | `src/data/en/profile.ts` |
-| Companies | `src/data/en/companies.ts` |
-| Experience (roles, dates, highlights, technologies) | `src/data/en/experience.ts` |
-| Projects and case studies | `src/data/en/projects.ts` |
-| Skills | `src/data/en/skills.ts` |
-| "How I Build Software" principles | `src/data/en/principles.ts` |
-| Education (graduation year is configurable) | `src/data/en/education.ts` |
-| Navigation | `src/data/en/navigation.ts` |
-| Headings, buttons, form messages | `src/data/en/ui.ts` |
-| Email, resume PDF, form endpoint, SEO title/description | `src/data/site.ts` |
+| Name, title, tagline, About text, focus areas, resume summary | `src/data/fa/profile.ts` |
+| Page title, description, keywords | `src/data/fa/seo.ts` |
+| Companies | `src/data/fa/companies.ts` |
+| Experience (roles, dates, highlights, technologies) | `src/data/fa/experience.ts` |
+| Projects and case studies | `src/data/fa/projects.ts` |
+| Skills | `src/data/fa/skills.ts` |
+| «چطور نرم‌افزار طراحی می‌کنم» principles | `src/data/fa/principles.ts` |
+| Education (graduation year is configurable) | `src/data/fa/education.ts` |
+| Navigation | `src/data/fa/navigation.ts` |
+| Headings, buttons, form labels and messages | `src/data/fa/ui.ts` |
+| Email, resume PDF, form endpoint | `src/data/site.ts` |
 | GitHub / LinkedIn | `src/data/social.ts` |
 
 Empty values are hidden rather than rendered as broken or fake links.
@@ -79,15 +82,15 @@ Search the codebase for `TODO(sina)`:
 - **Email:** `siteConfig.email` in `src/data/site.ts`. This turns on the email link and the contact form.
 - **LinkedIn URL:** `src/data/social.ts`.
 - **Resume PDF:** `siteConfig.resume.pdfUrl`. See [Change the resume PDF](#change-the-resume-pdf).
-- **Education years:** `src/data/en/education.ts`.
-- **Location and availability badge** (both optional): `src/data/en/profile.ts`.
+- **Education years:** `src/data/fa/education.ts`.
+- **Location and availability badge** (both optional): `src/data/fa/profile.ts`.
 - **Project status**, and the LifeOS repository: it is not publicly reachable right now, so make it public or remove the link.
 - **Experience highlights:** they are deliberately minimal. Add real detail, and add numbers only when you can back them up.
 - **Clinico case study:** it was written from the Clinico README. Review the wording, then add *Challenges* and *What I learned* in your own words.
 
 ## Add a project
 
-Add an entry to `src/data/en/projects.ts`:
+Add an entry to `src/data/fa/projects.ts` (and to `src/data/en/projects.ts` if you maintain the English content):
 
 ```ts
 {
@@ -161,17 +164,28 @@ never flashes. Colors are CSS variables in `src/app/globals.css`.
 - On a project site (`30nap.github.io/portfolio`), crawlers only read `robots.txt` at the domain
   root, so submit `sitemap.xml` in Google Search Console. With a custom domain, both work as-is.
 
-## Adding Persian later
+## Language, RTL and typography
 
-The site is structured for a second locale:
-
-1. Add `"fa"` to the `Locale` type (`src/types/content.ts`) and to `localeConfig` in
-   `src/lib/i18n.ts` with `dir: "rtl"`.
-2. Copy `src/data/en/` to `src/data/fa/`, translate it, and register it in `src/lib/content.ts`.
-   TypeScript flags any missing field.
-3. Add the routes, e.g. move the pages under `src/app/[locale]/` and pass `locale` to `getContent()`.
-4. Load a Persian font (e.g. Vazirmatn) for `fa`. Layout spacing already uses logical properties
-   (`ps-`/`pe-`/`start-`), so it mirrors correctly in RTL.
+- The rendered locale is `defaultLocale` in `src/lib/i18n.ts` (`"fa"`), which sets
+  `<html lang="fa" dir="rtl">`. The English content in `src/data/en/` has the same shape; switch
+  `defaultLocale` to `"en"` to render it, or add a `[locale]` route segment to serve both.
+- **Fonts:** Vazirmatn for Persian, Geist for Latin text such as technology names and URLs. Geist's
+  font face only covers Latin characters, so each script picks its own font automatically.
+- **Layout:** spacing and positioning use logical properties (`ps-`, `me-`, `start-`, `text-end`),
+  so they mirror in RTL. Directional arrows flip with `rtl:-scale-x-100`; brand icons do not.
+- **Letter-spacing** breaks Persian letter joining, so `tracking-*` utilities are neutralized in RTL
+  (`globals.css`), and the `.eyebrow` label drops uppercase and spacing in RTL.
+- **LTR islands:** emails, handles, URLs and the English subtitle are wrapped in `dir="ltr"` spans;
+  technology tags use `dir="auto"`. A logical margin on a `dir="ltr"` element resolves to its own
+  direction, so put margins on an RTL wrapper instead.
+- **Persian comma between Latin words** ("Java، Spring") would render in reverse order. A
+  right-to-left mark is inserted automatically for RTL content (`fixRtlPunctuation` in
+  `src/lib/i18n.ts`), so data files can be written naturally.
+- **Digits:** dates and generated numbers (years, «۰۱», copyright year) use Persian digits via
+  `ui.digits`. Write dates in data with Latin digits (`"2025"`); prose can use Persian digits
+  directly. Versions, URLs and code stay unchanged.
+- **Social preview image** (`/og.png`) is rendered in English with the Latin name, because the image
+  renderer does not shape Persian script reliably.
 
 ## Deploy
 

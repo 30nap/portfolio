@@ -5,12 +5,12 @@ import { experience } from "./experience";
 import { navigation } from "./navigation";
 import { principles } from "./principles";
 import { profile } from "./profile";
-import { seo } from "./seo";
 import { projects } from "./projects";
+import { seo } from "./seo";
 import { skills } from "./skills";
 import { ui } from "./ui";
 
-export const en: SiteContent = {
+export const fa: SiteContent = {
   seo,
   profile,
   navigation,

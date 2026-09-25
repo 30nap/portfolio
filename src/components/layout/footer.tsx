@@ -1,4 +1,5 @@
 import { Container } from "@/components/ui/container";
+import { localizeDigits } from "@/lib/i18n";
 import type { SocialLink } from "@/types/content";
 
 interface FooterProps {
@@ -6,10 +7,11 @@ interface FooterProps {
   role: string;
   links: SocialLink[];
   rights: string;
+  digits: "latin" | "persian";
 }
 
-export function Footer({ name, role, links, rights }: FooterProps) {
-  const year = new Date().getFullYear();
+export function Footer({ name, role, links, rights, digits }: FooterProps) {
+  const year = localizeDigits(new Date().getFullYear(), digits);
 
   return (
     <footer className="border-t border-border py-10 print:hidden">

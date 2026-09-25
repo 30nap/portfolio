@@ -19,7 +19,7 @@ interface ResumeViewProps {
 function ResumeSection({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
     <section aria-labelledby={id} className="border-t border-border py-8 print:py-4 break-inside-avoid-page">
-      <h2 id={id} className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-subtle">
+      <h2 id={id} className="eyebrow">
         {title}
       </h2>
       <div className="mt-5 print:mt-3">{children}</div>
@@ -55,13 +55,20 @@ export function ResumeView({ content, experience, socialLinks, email, siteUrl, p
 
       <article>
         <header className="pb-8 print:pb-4">
-          <p className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-subtle print:hidden">
+          <p className="eyebrow print:hidden">
             {labels.title}
           </p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl print:mt-0 print:text-3xl">
             {profile.name}
           </h1>
           <p className="mt-2 text-lg text-muted">{profile.role}</p>
+          {profile.roleSubtitle ? (
+            <p className="mt-1 text-sm text-subtle">
+              <span dir="ltr" lang="en">
+                {profile.roleSubtitle}
+              </span>
+            </p>
+          ) : null}
 
           <address className="mt-5 not-italic">
             <h2 className="sr-only">{labels.contact}</h2>
@@ -69,7 +76,11 @@ export function ResumeView({ content, experience, socialLinks, email, siteUrl, p
               {profile.location ? <li>{profile.location}</li> : null}
               {contactItems.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href} className="underline decoration-border-strong underline-offset-4 hover:text-foreground hover:decoration-foreground">
+                  <a
+                    href={item.href}
+                    dir="ltr"
+                    className="underline decoration-border-strong underline-offset-4 hover:text-foreground hover:decoration-foreground"
+                  >
                     {item.label}
                   </a>
                 </li>
@@ -90,8 +101,8 @@ export function ResumeView({ content, experience, socialLinks, email, siteUrl, p
                   <h3 className="font-semibold">
                     {item.title} <span className="font-normal text-muted">· {item.company.name}</span>
                   </h3>
-                  <p className="shrink-0 font-mono text-sm text-subtle">
-                    {formatDateRange(item.start, item.end, ui.experience.present)}
+                  <p className="shrink-0 font-mono text-sm text-subtle rtl:font-sans">
+                    {formatDateRange(item.start, item.end, ui)}
                   </p>
                 </div>
                 {item.summary ? <p className="mt-1 text-sm text-muted">{item.summary}</p> : null}
@@ -110,32 +121,15 @@ export function ResumeView({ content, experience, socialLinks, email, siteUrl, p
           </ol>
         </ResumeSection>
 
-        <ResumeSection id="resume-education" title={labels.education}>
-          <ul className="space-y-4">
-            {education.map((item) => {
-              const dates = formatEducationDates(item, ui.education);
-              return (
-                <li
-                  key={`${item.institution}-${item.degree}`}
-                  className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 print:flex-row print:justify-between"
-                >
-                  <div>
-                    <h3 className="font-semibold">{item.degree}</h3>
-                    <p className="text-sm text-muted">{item.institution}</p>
-                  </div>
-                  {dates ? <p className="shrink-0 font-mono text-sm text-subtle">{dates}</p> : null}
-                </li>
-              );
-            })}
-          </ul>
-        </ResumeSection>
-
         <ResumeSection id="resume-skills" title={labels.skills}>
           <dl className="grid gap-x-6 gap-y-2.5 text-[15px] sm:grid-cols-[160px_minmax(0,1fr)] print:grid-cols-[140px_minmax(0,1fr)] print:text-sm">
             {skills.map((group) => (
               <div key={group.title} className="contents">
                 <dt className="font-medium">{group.title}</dt>
-                <dd className="mb-2 text-foreground/85 sm:mb-0">{group.items.join(", ")}</dd>
+                <dd className="mb-2 text-foreground/85 sm:mb-0">
+                  {/* Technology names read left to right, separated by a Latin comma. */}
+                  <span dir="ltr">{group.items.join(", ")}</span>
+                </dd>
               </div>
             ))}
           </dl>
@@ -148,18 +142,42 @@ export function ResumeView({ content, experience, socialLinks, email, siteUrl, p
                 <h3 className="font-semibold">
                   {project.name}
                   {project.links.github ? (
-                    <a
-                      href={project.links.github}
-                      className="ms-2 text-sm font-normal text-muted underline decoration-border-strong underline-offset-4 hover:text-foreground"
-                    >
-                      {stripProtocol(project.links.github)}
-                    </a>
+                    // The margin sits on the wrapper: logical margins on a dir="ltr" element resolve to its own direction.
+                    <span className="ms-2">
+                      <a
+                        href={project.links.github}
+                        dir="ltr"
+                        className="text-sm font-normal text-muted underline decoration-border-strong underline-offset-4 hover:text-foreground"
+                      >
+                        {stripProtocol(project.links.github)}
+                      </a>
+                    </span>
                   ) : null}
                 </h3>
                 <p className="mt-1 text-[15px] leading-7 text-foreground/85 print:text-sm print:leading-6">{project.summary}</p>
                 <p className="mt-1 text-sm text-muted">{project.techStack.join(" · ")}</p>
               </li>
             ))}
+          </ul>
+        </ResumeSection>
+
+        <ResumeSection id="resume-education" title={labels.education}>
+          <ul className="space-y-4">
+            {education.map((item) => {
+              const dates = formatEducationDates(item, ui);
+              return (
+                <li
+                  key={`${item.institution}-${item.degree}`}
+                  className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 print:flex-row print:justify-between"
+                >
+                  <div>
+                    <h3 className="font-semibold">{item.degree}</h3>
+                    <p className="text-sm text-muted">{item.institution}</p>
+                  </div>
+                  {dates ? <p className="shrink-0 font-mono text-sm text-subtle rtl:font-sans">{dates}</p> : null}
+                </li>
+              );
+            })}
           </ul>
         </ResumeSection>
       </article>

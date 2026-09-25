@@ -53,7 +53,8 @@ export function ContactSection({ email, socialLinks, formEndpoint, ui }: Contact
                   <span className="min-w-0">
                     <span className="block text-xs text-subtle">{label}</span>
                     <span className="block truncate text-[15px] font-medium group-hover:underline group-hover:underline-offset-4">
-                      {value}
+                      {/* Emails, handles and URLs are LTR; the inline span keeps the line aligned to the start. */}
+                      <span dir="ltr">{value}</span>
                     </span>
                   </span>
                 </a>

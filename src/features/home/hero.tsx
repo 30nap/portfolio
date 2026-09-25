@@ -35,12 +35,19 @@ export function Hero({ profile, experience, socialLinks, email, resumePdfUrl, re
           ) : null}
 
           <h1 id="hero-heading">
-            <span className="block text-lg font-medium text-muted">{profile.name}</span>
-            <span className="sr-only">, </span>
-            <span className="mt-2 block text-4xl font-semibold tracking-tight text-balance sm:text-6xl sm:leading-[1.05]">
-              {profile.role}
+            <span className="block text-4xl font-bold tracking-tight text-balance sm:text-6xl sm:leading-[1.15]">
+              {profile.name}
             </span>
+            <span className="sr-only"> — </span>
+            <span className="mt-3 block text-2xl font-medium text-foreground/75 sm:mt-4 sm:text-3xl">{profile.role}</span>
           </h1>
+          {profile.roleSubtitle ? (
+            <p className="mt-3 font-mono text-sm text-subtle">
+              <span dir="ltr" lang="en">
+                {profile.roleSubtitle}
+              </span>
+            </p>
+          ) : null}
 
           <p className="mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg sm:leading-8">{profile.tagline}</p>
 
@@ -91,7 +98,7 @@ export function Hero({ profile, experience, socialLinks, email, resumePdfUrl, re
             aria-label={labels.snapshotTitle}
             className="animate-fade-up rounded-xl border border-border bg-background/80 p-6 backdrop-blur-sm [animation-delay:120ms]"
           >
-            <p className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-subtle">
+            <p className="eyebrow">
               {labels.snapshotTitle}
             </p>
             <dl className="mt-5 space-y-5 text-sm">
@@ -100,12 +107,12 @@ export function Hero({ profile, experience, socialLinks, email, resumePdfUrl, re
                 <dd className="mt-1 font-medium">
                   {current.title} · {current.company.name}
                 </dd>
-                <dd className="text-muted">{formatDateRange(current.start, current.end, ui.experience.present)}</dd>
+                <dd className="text-muted">{formatDateRange(current.start, current.end, ui)}</dd>
               </div>
               {previousCompanies.length > 0 ? (
                 <div>
                   <dt className="text-subtle">{labels.previously}</dt>
-                  <dd className="mt-1 font-medium">{previousCompanies.join(", ")}</dd>
+                  <dd className="mt-1 font-medium">{previousCompanies.join(ui.listSeparator)}</dd>
                 </div>
               ) : null}
               <div>

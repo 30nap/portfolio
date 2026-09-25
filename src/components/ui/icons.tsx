@@ -1,4 +1,5 @@
 import type { SVGProps } from "react";
+import { cn } from "@/lib/utils";
 
 type IconProps = SVGProps<SVGSVGElement>;
 
@@ -47,17 +48,19 @@ export function MailIcon(props: IconProps) {
   );
 }
 
+/** Directional: mirrored in right-to-left layouts. */
 export function ArrowRightIcon(props: IconProps) {
   return (
-    <Stroke {...props}>
+    <Stroke {...props} className={cn("rtl:-scale-x-100", props.className)}>
       <path d="M5 12h14M13 6l6 6-6 6" />
     </Stroke>
   );
 }
 
+/** Directional: mirrored in right-to-left layouts. */
 export function ArrowLeftIcon(props: IconProps) {
   return (
-    <Stroke {...props}>
+    <Stroke {...props} className={cn("rtl:-scale-x-100", props.className)}>
       <path d="M19 12H5M11 18l-6-6 6-6" />
     </Stroke>
   );

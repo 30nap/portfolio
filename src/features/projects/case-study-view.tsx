@@ -74,7 +74,7 @@ export function CaseStudyView({ project, ui }: { project: Project; ui: UiDiction
       ) : null}
 
       <section aria-labelledby="technologies-heading" className="mt-12 border-t border-border pt-8">
-        <h2 id="technologies-heading" className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-subtle">
+        <h2 id="technologies-heading" className="eyebrow">
           {labels.technologies}
         </h2>
         <TagList items={technologies} className="mt-4" />
