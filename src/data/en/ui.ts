@@ -1,0 +1,113 @@
+import type { UiDictionary } from "@/types/content";
+
+/** Interface copy: headings, buttons, labels and messages. */
+export const ui: UiDictionary = {
+  skipToContent: "Skip to content",
+  nav: {
+    home: "Home",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    primary: "Primary",
+  },
+  theme: {
+    toggle: "Toggle color theme",
+  },
+  hero: {
+    viewProjects: "View Projects",
+    viewExperience: "View Experience",
+    downloadResume: "Download Resume",
+    viewResume: "View Resume",
+    contact: "Contact Me",
+    snapshotTitle: "At a glance",
+    current: "Current",
+    previously: "Previously",
+    coreStack: "Core stack",
+  },
+  sections: {
+    about: { eyebrow: "About", title: "Backend engineering for systems that have to work", focusTitle: "Current focus" },
+    experience: { eyebrow: "Experience", title: "Where I've worked" },
+    projects: {
+      eyebrow: "Projects",
+      title: "Selected projects",
+      description: "Personal projects where I apply the architecture and practices I care about.",
+    },
+    skills: { eyebrow: "Skills", title: "Technical skills" },
+    principles: { eyebrow: "Engineering", title: "How I Build Software" },
+    education: { eyebrow: "Education", title: "Education" },
+    contact: {
+      eyebrow: "Contact",
+      title: "Let's talk",
+      description:
+        "Interested in working together or have a role in mind? I'd be glad to hear from you.",
+    },
+  },
+  experience: { present: "Present" },
+  education: { expected: "Expected", inProgress: "In progress" },
+  projects: {
+    sourceCode: "Source code",
+    liveDemo: "Live demo",
+    caseStudy: "Case study",
+    status: {
+      "in-development": "In development",
+      active: "Active",
+      completed: "Completed",
+      maintained: "Maintained",
+      archived: "Archived",
+    },
+  },
+  caseStudy: {
+    back: "All projects",
+    technologies: "Technologies",
+    pendingTitle: "Case study in progress",
+    pendingBody: "A detailed write-up for this project is being prepared.",
+    sections: {
+      problem: "Problem",
+      context: "Context",
+      architecture: "Architecture",
+      decisions: "Technical decisions",
+      challenges: "Challenges",
+      solution: "Solution",
+      learnings: "What I learned",
+    },
+  },
+  contact: {
+    email: "Email",
+    formTitle: "Send a message",
+    name: "Name",
+    emailField: "Email",
+    message: "Message",
+    submit: "Send message",
+    sending: "Sending…",
+    success: "Thanks — your message has been sent. I'll get back to you soon.",
+    successMailto: "Your email client should open with the message ready to send.",
+    failure: "Something went wrong. Please try again or email me directly.",
+    errors: {
+      nameRequired: "Please enter your name.",
+      emailRequired: "Please enter your email address.",
+      emailInvalid: "Please enter a valid email address.",
+      messageRequired: "Please enter a message.",
+      messageTooShort: "Please write at least 10 characters.",
+      summary: "Please fix the highlighted fields.",
+    },
+  },
+  resume: {
+    title: "Resume",
+    description: "Experience, skills and education.",
+    downloadPdf: "Download PDF",
+    print: "Print / Save as PDF",
+    summary: "Summary",
+    experience: "Experience",
+    education: "Education",
+    skills: "Technical Skills",
+    projects: "Projects",
+    contact: "Contact",
+  },
+  footer: {
+    rights: "All rights reserved.",
+  },
+  notFound: {
+    title: "Page not found",
+    body: "The page you are looking for does not exist or has been moved.",
+    home: "Back to home",
+  },
+};
