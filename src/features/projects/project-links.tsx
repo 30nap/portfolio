@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRightIcon, ArrowUpRightIcon, GitHubIcon } from "@/components/ui/icons";
+import { ArrowUpRightIcon, GitHubIcon } from "@/components/ui/icons";
 import type { Project, UiDictionary } from "@/types/content";
 
 interface ProjectLinksProps {
@@ -8,9 +8,9 @@ interface ProjectLinksProps {
   labels: UiDictionary["projects"];
 }
 
-const baseLinkClass = "inline-flex items-center gap-1.5 text-sm font-semibold transition-all";
-const linkClass = `${baseLinkClass} text-muted hover:text-accent`;
-const primaryLinkClass = `${baseLinkClass} text-accent hover:gap-2.5`;
+const baseLinkClass = "inline-flex items-center gap-1.5 text-[15px] font-bold transition-colors";
+const linkClass = `${baseLinkClass} text-muted hover:text-foreground`;
+const primaryLinkClass = `${baseLinkClass} text-foreground underline decoration-accent decoration-2 underline-offset-8 hover:text-accent`;
 
 /** Renders only the links that exist. */
 export function ProjectLinks({ project, showCaseStudy, labels }: ProjectLinksProps) {
@@ -23,7 +23,6 @@ export function ProjectLinks({ project, showCaseStudy, labels }: ProjectLinksPro
         <li>
           <Link href={`/projects/${project.slug}`} className={primaryLinkClass}>
             {labels.caseStudy}
-            <ArrowRightIcon width={14} height={14} />
             <span className="sr-only">: {project.name}</span>
           </Link>
         </li>

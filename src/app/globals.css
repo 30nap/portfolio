@@ -3,39 +3,41 @@
 /* Dark mode is class-based so the theme toggle can override the OS preference. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * "Ledger" palette: green-ruled accounting paper, navy ink and the red ink of a ledger's
+ * margin rule. Red is the only accent and marks what is current or actionable.
+ */
 :root {
-  --background: #fbfbfd;
-  --surface: #f3f4f8;
-  --card: #ffffff;
-  --foreground: #0b0c14;
-  --muted: #4d5162;
-  --subtle: #6b7085;
-  --border: #e5e7ef;
-  --border-strong: #d2d5e1;
-  --accent: #4f46e5;
-  --accent-2: #0ea5e9;
+  --background: #edf1ea;
+  --surface: #e3e9df;
+  --card: #f6f8f3;
+  --foreground: #13213c;
+  --muted: #46536b;
+  --subtle: #5f6b80;
+  --border: #cbd5c6;
+  --border-strong: #a9b8a3;
+  --accent: #b42a1f;
+  --accent-2: #1f4e8c;
   --accent-foreground: #ffffff;
-  --ring: #4f46e5;
-  --success: #16a34a;
-  --shadow-color: 228 30% 30%;
+  --ring: #b42a1f;
+  --success: #2e7d4f;
   color-scheme: light;
 }
 
 .dark {
-  --background: #0a0b11;
-  --surface: #11131c;
-  --card: #12141d;
-  --foreground: #f2f3f8;
-  --muted: #a4a8ba;
-  --subtle: #8a8fa3;
-  --border: #22253a;
-  --border-strong: #32364d;
-  --accent: #8b8cf8;
-  --accent-2: #38bdf8;
-  --accent-foreground: #0a0b11;
-  --ring: #8b8cf8;
-  --success: #4ade80;
-  --shadow-color: 230 50% 2%;
+  --background: #0e1a2b;
+  --surface: #132236;
+  --card: #152740;
+  --foreground: #e7ece2;
+  --muted: #a9b4c4;
+  --subtle: #8c98aa;
+  --border: #22364f;
+  --border-strong: #30486a;
+  --accent: #ff7b69;
+  --accent-2: #8db4f0;
+  --accent-foreground: #0e1a2b;
+  --ring: #ff7b69;
+  --success: #6fcf97;
   color-scheme: dark;
 }
 
@@ -63,6 +65,8 @@
     scroll-behavior: smooth;
     /* Keeps anchored sections clear of the sticky navbar. */
     scroll-padding-top: 5rem;
+    /* Width of the ledger margin column that holds section titles on wide screens. */
+    --margin-col: 13rem;
   }
 
   body {
@@ -84,13 +88,13 @@
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--accent) 24%, transparent);
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
   }
 
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 3px;
-    border-radius: 6px;
+    border-radius: 4px;
   }
 }
 
@@ -103,119 +107,95 @@
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
 
 @layer components {
-  /* Small label above section headings: accent pill with an icon. */
+  /* Small heading used on the resume and case study pages. */
   .eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.25rem;
-    font-weight: 600;
+    font-weight: 800;
     color: var(--accent);
   }
 
-  /* Raised surface used by cards across the site. */
+  /* Paper surface for forms and the few boxed elements. */
   .card {
     border: 1px solid var(--border);
     background: var(--card);
-    border-radius: 1rem;
-    box-shadow:
-      0 1px 2px hsl(var(--shadow-color) / 0.05),
-      0 4px 16px -8px hsl(var(--shadow-color) / 0.1);
-  }
-
-  .card-hover {
-    transition:
-      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.25s ease,
-      border-color 0.25s ease;
-  }
-
-  .card-hover:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
-    box-shadow:
-      0 1px 2px hsl(var(--shadow-color) / 0.06),
-      0 18px 40px -18px hsl(var(--shadow-color) / 0.3);
-  }
-
-  /* Accent-tinted square that holds an icon. */
-  .icon-badge {
-    display: inline-flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.75rem;
-    color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
-  }
-
-  /* Accent gradient used sparingly: the role line in the hero and the primary button. */
-  .text-gradient {
-    background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  [dir="rtl"] .text-gradient {
-    background: linear-gradient(270deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
+    border-radius: 0.5rem;
   }
 }
 
-/* Entrance animation for the hero. */
-@keyframes fade-up {
+/* ---- Career trace (hero) ----------------------------------------------------------- */
+
+/* Year gridlines: one tile per year, each starting with a hairline at its start edge. */
+.trace-track {
+  background-image: linear-gradient(to right, var(--border) 1px, transparent 1px);
+  background-size: calc(100% / var(--years)) 100%;
+  background-position: left top;
+}
+
+[dir="rtl"] .trace-track {
+  background-image: linear-gradient(to left, var(--border) 1px, transparent 1px);
+  background-position: right top;
+}
+
+.trace-span {
+  transform-origin: left center;
+}
+
+[dir="rtl"] .trace-span {
+  transform-origin: right center;
+}
+
+@keyframes span-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes live-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+
+@keyframes appear {
   from {
     opacity: 0;
-    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: none;
   }
 }
 
-@utility animate-fade-up {
-  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-/*
- * Scroll-driven reveal for sections. CSS only, no JavaScript. Browsers without scroll-driven
- * animations (and visitors who prefer reduced motion) simply see the content.
- */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      animation: fade-up linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 35%;
-    }
+/* The only automatic motion on the site: spans draw in chronological order on load. */
+@media (prefers-reduced-motion: no-preference) {
+  .trace-span {
+    animation: span-draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+    animation-delay: var(--delay, 0ms);
   }
-}
 
-/* Faint grid behind the hero. Masked so it fades out and never competes with the text. */
-@utility bg-grid {
-  background-image:
-    linear-gradient(to right, var(--border) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 75% 65% at 50% 0%, #000 25%, transparent 75%);
-}
-
-/* Soft accent glow behind the hero; two low-opacity radial gradients. */
-@utility bg-glow {
-  background:
-    radial-gradient(40rem 22rem at 85% -10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
-    radial-gradient(30rem 18rem at 10% 10%, color-mix(in srgb, var(--accent-2) 10%, transparent), transparent 70%);
+  .trace-live {
+    animation:
+      appear 0.3s ease both,
+      live-ring 2.4s ease-out infinite;
+    animation-delay: var(--delay, 0ms), var(--delay, 0ms);
+  }
 }
 
 @media print {

@@ -6,7 +6,7 @@ export function Tag({ children, className }: { children: ReactNode; className?: 
     <span
       dir="auto"
       className={cn(
-        "inline-flex items-center rounded-lg border border-border bg-surface px-2.5 py-1 text-xs font-medium text-muted",
+        "inline-flex items-center rounded-sm border border-border bg-card px-2 py-0.5 text-xs font-semibold text-accent-2",
         className,
       )}
     >
@@ -23,6 +23,24 @@ export function TagList({ items, label, className }: { items: string[]; label?: 
       {items.map((item) => (
         <li key={item}>
           <Tag>{item}</Tag>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * Technology names as a plain run of text in blue ink, the colour the site reserves
+ * for technologies. Lighter than tags where a list sits inside running content.
+ */
+export function TechList({ items, label, className }: { items: string[]; label?: string; className?: string }) {
+  if (items.length === 0) return null;
+
+  return (
+    <ul className={cn("flex flex-wrap gap-x-4 gap-y-1 text-sm font-semibold text-accent-2", className)} aria-label={label}>
+      {items.map((item) => (
+        <li key={item} dir="ltr">
+          {item}
         </li>
       ))}
     </ul>
